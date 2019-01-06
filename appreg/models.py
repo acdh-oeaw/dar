@@ -1,3 +1,4 @@
+import requests
 from django.db import models
 
 
@@ -40,3 +41,20 @@ class WebApp(models.Model):
             return "{}".format(self.title)
         else:
             return "{}".format(self.app_url)
+
+    def save(self, *args, **kwargs):
+        url = "{}project-info".format(self.app_url)
+        try:
+            r = requests.get(url)
+        except Exception as e:
+            print(e)
+            r = None
+        if r and r.headers['content-type'] == "application/json":
+            metadata = r.json()
+            self.title = metadata['title']
+            self.subtitle = metadata['subtitle']
+            self.author = metadata['author']
+            self.description = metadata['description']
+            self.purpose_en = metadata['purpose_en']
+            self.git_url = metadata['github']
+        super().save(*args, **kwargs)
