@@ -1,5 +1,7 @@
 import requests
+
 from django.db import models
+from django.urls import reverse
 
 
 class WebApp(models.Model):
@@ -22,7 +24,7 @@ class WebApp(models.Model):
     )
     author = models.CharField(
         max_length=250, blank=True,
-        verbose_name="Creators of the Web App"
+        verbose_name="Creator(s) of the Web App"
     )
     description = models.TextField(
         blank=True, verbose_name="Description"
@@ -58,3 +60,38 @@ class WebApp(models.Model):
             self.purpose_en = metadata['purpose_en']
             self.git_url = metadata['github']
         super().save(*args, **kwargs)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('webapps:webapp_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('webapps:webapp_create')
+
+    def get_absolute_url(self):
+        return reverse('webapps:webapp_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('webapps:webapp_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('webapps:webapp_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'webapps:webapp_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'webapps:webapp_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False

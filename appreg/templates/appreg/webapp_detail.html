@@ -1,0 +1,67 @@
+{% extends "browsing/generic_detail.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% block title %}{{ object }}{% endblock %}
+{% block custom %}
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Info</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>
+                        {% get_verbose_name webapp "title" %}
+                    </th>
+                    <td>
+                        {% if object.title %}
+                            <a href="{{ object.app_url }}">{{ object.title}}</a>
+                        {% else %}
+                            go create a "project-info" endpoint for <a href="{{ object.app_url }}">{{ object.app_url }}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {% get_verbose_name webapp "subtitle" %}
+                    </th>
+                    <td>
+                        {{ object.subtitle }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {% get_verbose_name webapp "description" %}
+                    </th>
+                    <td>
+                        {{ object.description }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {% get_verbose_name webapp "purpose_en" %}
+                    </th>
+                    <td>
+                        {{ object.purpose_en }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {% get_verbose_name webapp "author" %}
+                    </th>
+                    <td>
+                        {{ object.author }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {% get_verbose_name webapp "git_url" %}
+                    </th>
+                    <td>
+                        <a href="{{ object.git_url }}">{{ object.git_url }}</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}
