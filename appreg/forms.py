@@ -45,15 +45,17 @@ class WebAppFilterFormHelper(FormHelper):
         self.layout = Layout(
             Accordion(
                 AccordionGroup(
-                    'Inhalt',
-                    'subject_norm',
+                    'Basic',
+                    'title',
+                    'subtitle',
                     css_id="more"
                     ),
                 AccordionGroup(
-                    'Datierung',
-                    'written_date',
-                    'not_before',
-                    'not_after',
+                    'Advanced',
+                    'app_type',
+                    'base_tech',
+                    'framework',
+                    'created_at',
                     css_id="datierung"
                     ),
                 )
