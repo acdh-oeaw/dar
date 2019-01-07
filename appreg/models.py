@@ -37,6 +37,18 @@ class WebApp(models.Model):
         verbose_name="The URL the applications code repository",
         blank=True
     )
+    app_type = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="What type of Web App"
+    )
+    base_tech = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="The core tech stack of the application"
+    )
+    framework = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="Specific framework used"
+    )
 
     def __str__(self):
         if self.title:
@@ -59,6 +71,9 @@ class WebApp(models.Model):
             self.description = metadata['description']
             self.purpose_en = metadata['purpose_en']
             self.git_url = metadata['github']
+            self.app_type = metadata['app_type']
+            self.base_tech = metadata['base_tech']
+            self.framework = metadata['framework']
         super().save(*args, **kwargs)
 
     @classmethod

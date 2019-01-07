@@ -55,6 +55,30 @@
                 </tr>
                 <tr>
                     <th>
+                        {% get_verbose_name webapp "app_type" %}
+                    </th>
+                    <td>
+                        {{ object.app_type }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {% get_verbose_name webapp "base_tech" %}
+                    </th>
+                    <td>
+                        {{ object.base_tech }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {% get_verbose_name webapp "framework" %}
+                    </th>
+                    <td>
+                        {{ object.framework }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
                         {% get_verbose_name webapp "git_url" %}
                     </th>
                     <td>
