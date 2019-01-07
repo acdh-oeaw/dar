@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'browsing',
     'stats',
     'appreg',
+    'charts',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
