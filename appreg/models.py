@@ -63,26 +63,38 @@ class WebApp(models.Model):
         except Exception as e:
             print(e)
             r = None
-        if r and r.headers['content-type'] == "application/json":
-            metadata = r.json()
-            self.title = metadata['title']
-            self.subtitle = metadata['subtitle']
-            self.author = metadata['author']
-            self.description = metadata['description']
-            self.purpose_en = metadata['purpose_en']
-            self.git_url = metadata['github']
+        if not r:
+            url = "{}analyze/project-info.xql".format(self.app_url)
             try:
-                self.app_type = metadata['app_type']
-            except KeyError:
-                self.app_type = 'no info provided'
+                r = requests.get(url)
+            except Exception as e:
+                print(e)
+                r = None
+        if r:
             try:
-                self.base_tech = metadata['base_tech']
-            except KeyError:
-                self.base_tech = 'no info provided'
-            try:
-                self.framework = metadata['framework']
-            except KeyError:
-                self.framework = 'no info provided'
+                metadata = r.json()
+            except Exception as e:
+                print(e)
+                metadata = None
+            if metadata:
+                self.title = metadata['title']
+                self.subtitle = metadata['subtitle']
+                self.author = metadata['author']
+                self.description = metadata['description']
+                self.purpose_en = metadata['purpose_en']
+                self.git_url = metadata['github']
+                try:
+                    self.app_type = metadata['app_type']
+                except KeyError:
+                    self.app_type = 'no info provided'
+                try:
+                    self.base_tech = metadata['base_tech']
+                except KeyError:
+                    self.base_tech = 'no info provided'
+                try:
+                    self.framework = metadata['framework']
+                except KeyError:
+                    self.framework = 'no info provided'
         super().save(*args, **kwargs)
 
     @classmethod
