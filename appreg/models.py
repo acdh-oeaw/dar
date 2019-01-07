@@ -71,9 +71,18 @@ class WebApp(models.Model):
             self.description = metadata['description']
             self.purpose_en = metadata['purpose_en']
             self.git_url = metadata['github']
-            self.app_type = metadata['app_type']
-            self.base_tech = metadata['base_tech']
-            self.framework = metadata['framework']
+            try:
+                self.app_type = metadata['app_type']
+            except KeyError:
+                self.app_type = 'no info provided'
+            try:
+                self.base_tech = metadata['base_tech']
+            except KeyError:
+                self.base_tech = 'no info provided'
+            try:
+                self.framework = metadata['framework']
+            except KeyError:
+                self.framework = 'no info provided'
         super().save(*args, **kwargs)
 
     @classmethod
