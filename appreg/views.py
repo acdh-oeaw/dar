@@ -24,7 +24,6 @@ class WebAppListView(GenericListView):
     init_columns = [
         'id',
         'title',
-        'app_url',
     ]
 
 

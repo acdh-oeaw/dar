@@ -5,6 +5,7 @@ from . models import WebApp
 
 class WebAppTable(tables.Table):
     id = tables.LinkColumn(verbose_name='ID')
+    title = tables.LinkColumn(verbose_name='Title')
 
     class Meta:
         model = WebApp
