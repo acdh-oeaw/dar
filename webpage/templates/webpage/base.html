@@ -72,6 +72,8 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{% url 'webpage:staticpage' template='about' %}">About project</a>
                                     <a class="dropdown-item" href="{% url 'webpage:staticpage' template='imprint' %}">Imprint | Impressum</a>
+                                    <a class="dropdown-item" href="/api">API</a>
+                                    <a class="dropdown-item" href="/docs">API-Documentation</a>
                                 </div>
                             </li>
                     {% if user.is_authenticated %}
