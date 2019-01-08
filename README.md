@@ -32,4 +32,4 @@ Make sure that the application you'd like to register has some endpoint returnin
 }
 ```
 
-You can now register applications by browsing to http://127.0.0.1:8000/webapps/apps/create/ and populating the field "The URL of the project's info endpoint." (the only mandatory field). On saving this endpoint will be called, the (hopefully successfully returned) JSON parsed and the remaining fields populated. Be aware that the field "The URL of the application" will be populated automatically with the `{uri.scheme}://{uri.netloc}/` of the project info's endpoint URL.
+You can now register applications by browsing to http://127.0.0.1:8000/webapps/apps/create/ and populating the field "The URL of the project's info endpoint." (the only mandatory field). On saving this endpoint will be called, the (hopefully successfully returned) JSON parsed and the remaining fields populated. Be aware that the field "The URL of the application" will be populated automatically with the `{uri.scheme}://{uri.netloc}/` of the project info's endpoint URL (if left blank)
