@@ -3,10 +3,18 @@ import requests
 from django.db import models
 from django.urls import reverse
 
+from urllib.parse import urlparse
+
+from . utils import populate_webapp
+
 
 class WebApp(models.Model):
     app_url = models.URLField(
-        max_length=200, verbose_name="The URL of the application"
+        max_length=200, verbose_name="The URL of the application",
+        blank=True
+    )
+    project_info_endpoint = models.URLField(
+        max_length=200, verbose_name="The URL of the project's info endpoint."
     )
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name="Created at"
@@ -57,44 +65,28 @@ class WebApp(models.Model):
             return "{}".format(self.app_url)
 
     def save(self, *args, **kwargs):
-        url = "{}project-info".format(self.app_url)
-        try:
-            r = requests.get(url)
-        except Exception as e:
-            print(e)
-            r = None
-        if not r:
-            url = "{}analyze/project-info.xql".format(self.app_url)
+        if self.project_info_endpoint:
+            url = self.project_info_endpoint
             try:
                 r = requests.get(url)
             except Exception as e:
                 print(e)
                 r = None
-        if r:
-            try:
-                metadata = r.json()
-            except Exception as e:
-                print(e)
-                metadata = None
-            if metadata:
-                self.title = metadata['title']
-                self.subtitle = metadata['subtitle']
-                self.author = metadata['author']
-                self.description = metadata['description']
-                self.purpose_en = metadata['purpose_en']
-                self.git_url = metadata['github']
+            if r:
                 try:
-                    self.app_type = metadata['app_type']
-                except KeyError:
-                    self.app_type = 'no info provided'
-                try:
-                    self.base_tech = metadata['base_tech']
-                except KeyError:
-                    self.base_tech = 'no info provided'
-                try:
-                    self.framework = metadata['framework']
-                except KeyError:
-                    self.framework = 'no info provided'
+                    metadata = r.json()
+                except Exception as e:
+                    print(e)
+                    metadata = None
+                if metadata:
+                    self = populate_webapp(self, metadata)
+            if self.app_url:
+                pass
+            else:
+                parsed_uri = urlparse(self.project_info_endpoint)
+                self.app_url = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+        else:
+            pass
         super().save(*args, **kwargs)
 
     @classmethod

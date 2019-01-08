@@ -1,50 +1,35 @@
-[![DOI](https://zenodo.org/badge/95352230.svg)](https://zenodo.org/badge/latestdoi/95352230)
-
-# Django Base Project
+# App Registry
 
 ## About
 
-As the name suggests, this is a basic Django project. The idea of this base project is mainly to bootstrap the web application development process through setting up such a Django Base Project which already provides a couple of Django apps providing quite generic functionalities needed for building web application bound to the Digital Humanities Domain.
+A [djangobaseproject](https://github.com/acdh-oeaw/djangobaseproject) based web application to register other web applications.
 
 ## Install
 
-1. Download or clone this repository.
-2. Rename the root folder of this project `dar` and the `dar` folder in your projects root folder to the name chosen for your new project (e.g. to `mynewproject`).
-3. In all files in the project directory, rename `dar` to the name chosen for your new project. (Use `Find and Replace All` feature provided by your code editor.)
-4. Adapt the information in `webpage/metadata.py` according to your needs.
-5. Create and activate a virtual environment and run `pip install -r requirements.txt`.
+* Download or clone this repository.
+* Adapt the information in `webpage/metadata.py` according to your needs.
+* Create and activate a virtual environment and run `pip install -r requirements.txt`.
+* Run `makemigrations`, `migrate`, and `runserver` and check [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
 
 ## First steps
 
-This project uses modularized settings (to keep sensitive information out of version control or to be able to use the same code for development and production). Therefore you'll have to append a `--settings` parameter pointing to the settings file you'd like to run the code with to all `manage.py` commands.
+Make sure that the application you'd like to register has some endpoint return a JSON file like the one below
 
-For development just append `--settings={nameOfYouProject}.settings.dev` to the following commands, e.g. `python manage.py makemigrations --settings=dar.settings.dev`.
+```json
+{
+    "title": "ACDH-OeAW App Registry",
+    "author": "Firstname Lastname, Firstname Lastname",
+    "subtitle": "A registry of Web Applications run by the ACDH-OeAW",
+    "description": "ACDH-OeAW App Registry is a registry of Web Applications\
+    developed and/or hosted by the Austrian Centre for Digital Humanities at the Austrian\
+    Acadamey of Sciences.",
+    "github": "https://github.com/acdh-oeaw/dar",
+    "purpose_de": "Ziel von ACDH-OeAW App Registry ist die Registrierung von Web\
+    Applikationen, die vom ACDH-OeAW entwickelt und/oder gehosted werden.",
+    "purpose_en": "The purpose of ACDH-OeAW App Registry is the registration of web\
+    apps developed and/or hosted at the ACDH-OeAW",
+    "app_type": "database|website|service|tool|digital-edition"
+}
+```
 
-6. Run `makemigrations`, `migrate`, and `runserver` and check [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
-
-### Jupyter notebook
-
-In case you want to use [Jupyter Notebook and Django-Extensions](https://andrewbrookins.com/python/using-ipython-notebook-with-django/) use the `requirements_dev.txt` for your virtual environment.
-
-## Next steps
-
-Build your custom awesome Web App.
-
-## Tests
-
-Install required packages
-
-    pip install -r requirements_test.txt
-
-Run tests
-
-    python manage.py test --settings=dar.settings.test
-
-After running the test a HTML coverage report will be available at cover/index.html
-
-
-# install packages
-
-`pip install acdh-django-sparql`
-
-see https://github.com/acdh-oeaw/acdh-django-sparql for further install instructions
+You can now register applications by browsing to http://127.0.0.1:8000/webapps/apps/create/ and populating the field "The URL of the project's info endpoint." (the only mandatory field). On saving this endpoint will be called, the (hopefully succesfully returned) JSON parsed and the remaining fields populated. Be aware that the field "The URL of the application" will be populated automatically with the `{uri.scheme}://{uri.netloc}/` of the project info's endpoint URL.
