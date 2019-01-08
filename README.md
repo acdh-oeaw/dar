@@ -13,7 +13,7 @@ A [djangobaseproject](https://github.com/acdh-oeaw/djangobaseproject) based web 
 
 ## First steps
 
-Make sure that the application you'd like to register has some endpoint return a JSON file like the one below
+Make sure that the application you'd like to register has some endpoint returning a JSON file like the one below
 
 ```json
 {
@@ -32,4 +32,4 @@ Make sure that the application you'd like to register has some endpoint return a
 }
 ```
 
-You can now register applications by browsing to http://127.0.0.1:8000/webapps/apps/create/ and populating the field "The URL of the project's info endpoint." (the only mandatory field). On saving this endpoint will be called, the (hopefully succesfully returned) JSON parsed and the remaining fields populated. Be aware that the field "The URL of the application" will be populated automatically with the `{uri.scheme}://{uri.netloc}/` of the project info's endpoint URL.
+You can now register applications by browsing to http://127.0.0.1:8000/webapps/apps/create/ and populating the field "The URL of the project's info endpoint." (the only mandatory field). On saving this endpoint will be called, the (hopefully successfully returned) JSON parsed and the remaining fields populated. Be aware that the field "The URL of the application" will be populated automatically with the `{uri.scheme}://{uri.netloc}/` of the project info's endpoint URL.
