@@ -57,6 +57,14 @@ class WebApp(models.Model):
         max_length=250, blank=True,
         verbose_name="Specific framework used"
     )
+    version = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="Version"
+    )
+    last_commit = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="last commit"
+    )
 
     def __str__(self):
         if self.title:

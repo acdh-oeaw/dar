@@ -79,12 +79,32 @@
                 </tr>
                 <tr>
                     <th>
+                        {% get_verbose_name webapp "version" %}
+                    </th>
+                    <td>
+                        {{ object.version }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
                         {% get_verbose_name webapp "git_url" %}
                     </th>
                     <td>
                         <a href="{{ object.git_url }}">{{ object.git_url }}</a>
                     </td>
                 </tr>
+                {% if object.last_commit %}
+                    {% if object.last_commit != "no info provided" %}
+                        <tr>
+                            <th>
+                                {% get_verbose_name webapp "last_commit" %}
+                            </th>
+                            <td>
+                                <a href="{{ object.last_commit }}">{{ object.last_commit }}</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endif %}
             </table>
         </div>
     </div>

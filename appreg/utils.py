@@ -42,4 +42,12 @@ def populate_webapp(webpage_object, metadata):
         webpage_object.framework = metadata['framework']
     except KeyError:
         webpage_object.framework = 'no info provided'
+    try:
+        webpage_object.version = metadata['version']
+    except KeyError:
+        webpage_object.version = 'no info provided'
+    try:
+        webpage_object.last_commit = metadata['last_commit']
+    except KeyError:
+        webpage_object.last_commit = 'no info provided'
     return webpage_object
