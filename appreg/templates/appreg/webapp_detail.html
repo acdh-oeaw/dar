@@ -118,10 +118,14 @@
 		var i;
 		for (i = 0; i < value.length; i++) {
 			var res = "<p>";
+			res += "<b>"+value[i]['library']+"</b>"
 			if (value[i]['version'] != 'undefined'){
-				res += "<b>"+value[i]['library']+"</b> v"+value[i]['version']}
+				res += " v"+value[i]['version']}
 			if ("git" in value[i]){
-				res += ", git: <a href='"+value[i]['git']+"'>"+value[i]['git']+"</a>"
+				if (value[i]['version'] != 'undefined'){
+				res += ","
+				}
+				res += " git: <a href='"+value[i]['git']+"'>"+value[i]['git']+"</a>"
 			}
 			res += "</p>"
 			$('#td_versions').append(res);
