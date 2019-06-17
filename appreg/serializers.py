@@ -4,6 +4,7 @@ from .models import *
 
 
 class WebAppSerializer(serializers.HyperlinkedModelSerializer):
+    app_id = serializers.ReadOnlyField(source='id')
 
     class Meta:
         model = WebApp
