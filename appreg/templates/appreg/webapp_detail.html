@@ -3,7 +3,8 @@
 {% load webpage_extras %}
 {% block title %}{{ object }}{% endblock %}
 {% block custom %}
-    <div class="card">
+{{ value|json_script:"version-data" }}
+<div class="card">
         <div class="card-header">
             <h4 class="card-title">Info</h4>
         </div>
@@ -77,13 +78,12 @@
                         {{ object.framework }}
                     </td>
                 </tr>
-                <tr>
+                <tr id="tr_versions">
                     <th>
                         {% get_verbose_name webapp "version" %}
                     </th>
-                    <td>
-                        {{ object.version }}
-                    </td>
+		    <td id="td_versions">
+		    </td>
                 </tr>
                 <tr>
                     <th>
@@ -109,3 +109,31 @@
         </div>
     </div>
 {% endblock %}
+{% block scripts2 %}
+{{block.super}}
+<script type='text/javascript'>
+	$(document).ready(function(){
+		try {
+		var value = eval({{object.version|safe}});
+		var i;
+		for (i = 0; i < value.length; i++) {
+			var res = "<p>";
+			res += "<b>"+value[i]['library']+"</b>"
+			if (value[i]['version'] != 'undefined'){
+				res += " v"+value[i]['version']}
+			if ("git" in value[i]){
+				if (value[i]['version'] != 'undefined'){
+				res += ","
+				}
+				res += " git: <a href='"+value[i]['git']+"'>"+value[i]['git']+"</a>"
+			}
+			res += "</p>"
+			$('#td_versions').append(res);
+		} }
+		catch(err) {	
+			$('#td_versions').append("{{object.version}}");
+		}
+
+})
+</script>
+{% endblock scripts2 %}
