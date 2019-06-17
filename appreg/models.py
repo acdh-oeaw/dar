@@ -65,6 +65,14 @@ class WebApp(models.Model):
         max_length=250, blank=True,
         verbose_name="last commit"
     )
+    title_img = models.CharField(
+        max_length=500, blank=True,
+        verbose_name="Path to the project's title image",
+    )
+    project_logo = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="Path to the project's logo",
+    )
 
     def __str__(self):
         if self.title:

@@ -24,6 +24,22 @@
                 </tr>
                 <tr>
                     <th>
+                        {% get_verbose_name webapp "project_logo" %}
+                    </th>
+                    <td>
+                        {{ object.project_logo }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {% get_verbose_name webapp "title_img" %}
+                    </th>
+                    <td>
+                        {{ object.title_img }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
                         {% get_verbose_name webapp "subtitle" %}
                     </th>
                     <td>
@@ -130,7 +146,7 @@
 			res += "</p>"
 			$('#td_versions').append(res);
 		} }
-		catch(err) {	
+		catch(err) {
 			$('#td_versions').append("{{object.version}}");
 		}
 

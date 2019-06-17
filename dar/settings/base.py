@@ -17,7 +17,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__
 
 ACDH_IMPRINT_URL = "https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID="
 REDMINE_ID = 12893
-# Application definition
+DEFAULT_TITLE_IMG = "https://shared.acdh.oeaw.ac.at/apis/apis/project-title-img.jpg"
+DEFAULT_LOGO = "https://shared.acdh.oeaw.ac.at/fundament/dist/fundament/images/acdh_logo.png"
+
 
 INSTALLED_APPS = [
     'dal',

@@ -1,3 +1,6 @@
+from django.conf import settings
+
+
 def populate_webapp(webpage_object, metadata):
     """ parses a metadata_dict and populates a webpage object with the parsed data
     :param webpage_object: An instance of the class appreg.models.WebApp
@@ -50,4 +53,12 @@ def populate_webapp(webpage_object, metadata):
         webpage_object.last_commit = metadata['last_commit']
     except KeyError:
         webpage_object.last_commit = 'no info provided'
+    try:
+        webpage_object.title_img = metadata['title_img']
+    except KeyError:
+        webpage_object.title_img = settings.DEFAULT_TITLE_IMG
+    try:
+        webpage_object.project_logo = metadata['project_logo']
+    except KeyError:
+        webpage_object.project_logo = settings.DEFAULT_LOGO
     return webpage_object
