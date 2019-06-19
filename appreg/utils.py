@@ -61,4 +61,8 @@ def populate_webapp(webpage_object, metadata):
         webpage_object.project_logo = metadata['project_logo']
     except KeyError:
         webpage_object.project_logo = settings.DEFAULT_LOGO
+    try:
+        webpage_object.public = metadata['public']
+    except KeyError:
+        webpage_object.public = 'restricted'
     return webpage_object

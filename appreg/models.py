@@ -73,6 +73,14 @@ class WebApp(models.Model):
         max_length=250, blank=True,
         verbose_name="Path to the project's logo",
     )
+    public = models.CharField(
+        max_length=250, blank=True, choices=(
+            ('public', 'public'),
+            ('restricted', 'restricted')
+        ),
+        verbose_name="Content public accessible?",
+        default="restricted"
+    )
 
     def __str__(self):
         if self.title:
