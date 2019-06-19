@@ -94,6 +94,14 @@
                         {{ object.framework }}
                     </td>
                 </tr>
+                <tr>
+                    <th>
+                        {% get_verbose_name webapp "public" %}
+                    </th>
+                    <td>
+                        {{ object.public }}
+                    </td>
+                </tr>
                 <tr id="tr_versions">
                     <th>
                         {% get_verbose_name webapp "version" %}
